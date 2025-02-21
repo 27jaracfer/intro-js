@@ -13,4 +13,4 @@ const prompt = require('prompt-sync')();
 let cardsuit = prompt(" What card suit do you pick? ");
 let cardrank = prompt("What card rank do you pick? ");
 
-console.log("Your favorit card is 3H"+ cardsuit+cardrank)
+console.log("Your favorit card is " + cardsuit+cardrank)
