@@ -1,0 +1,12 @@
+{
+  "name": "island-escape-game",
+  "version": "1.0.0",
+  "description": "A survival game where you need to escape from an island",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+} 
