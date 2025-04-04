@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #000;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#hud {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 1000;
+}
+
+#health-bar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    perspective: 1000px;
+}
+
+#player-health, #opponent-health {
+    width: 200px;
+    height: 30px;
+    background-color: #333;
+    position: relative;
+    border: 3px solid #fff;
+    overflow: visible;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(255, 255, 255, 0.2),
+                0 0 45px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+}
+
+#player-health:hover, #opponent-health:hover {
+    transform: translateZ(20px);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4),
+                0 0 50px rgba(255, 255, 255, 0.3),
+                0 0 75px rgba(255, 255, 255, 0.2);
+}
+
+#player-health::before, #opponent-health::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--health, 100%);
+    transition: width 0.3s ease;
+    transform-style: preserve-3d;
+    transform: translateZ(5px);
+}
+
+#player-health::before {
+    background: linear-gradient(90deg, #00ff00, #00cc00);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+#opponent-health::before {
+    background: linear-gradient(90deg, #ff0000, #cc0000);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+}
+
+/* Add health value display */
+#player-health::after, #opponent-health::after {
+    content: attr(data-health);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+/* Add damage animation classes */
+@keyframes healthShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes healthFlash {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+    100% { filter: brightness(1); }
+}
+
+.damage-taken {
+    animation: healthShake 0.3s ease-in-out, healthFlash 0.3s ease-in-out;
+}
+
+/* Add win circles container */
+.win-circles {
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.win-circle {
+    width: 12px;
+    height: 12px;
+    background-color: gold;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    animation: circlePulse 1s infinite;
+}
+
+@keyframes circlePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#round-info {
+    color: white;
+    font-size: 28px;
+    font-family: Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+#timer {
+    color: white;
+    font-size: 28px;
+    font-family: Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.win-star {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: gold;
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+    animation: starPulse 1s infinite;
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+} 
